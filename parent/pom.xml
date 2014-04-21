@@ -8,6 +8,12 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- project organization/team -->
+    <organization>
+        <name>code2bytes.org</name>
+        <url>http://www.code2bytes.org</url>
+    </organization>
+    
     <!-- project infrastructure -->
     <ciManagement>
         <system>Jenkins</system>
