@@ -8,6 +8,12 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- project infrastructure -->
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://www.code2bytes.org/jenkins</url>
+    </ciManagement>
+
     <!-- properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
