@@ -2,16 +2,19 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Maven coordinates -->
     <groupId>org.code2bytes</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
+        <!-- plugin management -->
         <pluginManagement>
             <plugins>
                 <!-- Apache Maven plugins -->
@@ -59,5 +62,50 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+
+        <!-- profile for POM builds -->
+        <profile>
+            <id>pom-build</id>
+            <activation>
+                <file>
+                    <exists>pom-build</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>index</report>
+                                    <report>project-team</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>distribution-management</report>
+                                    <report>dependencies</report>
+                                    <report>dependency-management</report>
+                                    <report>plugins</report>
+                                    <report>summary</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+    </profiles>
 
 </project>
