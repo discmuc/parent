@@ -13,7 +13,7 @@
         <name>code2bytes.org</name>
         <url>http://www.code2bytes.org</url>
     </organization>
-    
+
     <!-- project infrastructure -->
     <ciManagement>
         <system>Jenkins</system>
@@ -67,6 +67,12 @@
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.3</version>
                 </plugin>
+                <!-- Third party plugins -->
+                <plugin>
+                    <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>3.8.2</version>
+                </plugin>
                 <!-- Apache Maven report plugins -->
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -76,6 +82,31 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.1</version>
+                </plugin>
+                <!-- m2e Eclipse goal handling -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                                        <artifactId>android-maven-plugin</artifactId>
+                                        <versionRange>[3.8.2,)</versionRange>
+                                        <goals>
+                                            <goal>consume-aar</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
