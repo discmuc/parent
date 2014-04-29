@@ -202,13 +202,6 @@
                     </plugin>
                 </plugins>
             </build>
-            <dependencies>
-                <dependency>
-                    <groupId>android</groupId>
-                    <artifactId>android</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
             <reporting>
                 <plugins>
                     <plugin>
