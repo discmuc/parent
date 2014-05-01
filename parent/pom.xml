@@ -56,22 +56,42 @@
                     <version>2.8.1</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.3</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.17</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.4</version>
                 </plugin>
                 <!-- Third party plugins -->
                 <plugin>
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
-                    <version>3.8.2</version>
+                    <version>3.9.0-rc.1</version>
                 </plugin>
                 <!-- Apache Maven report plugins -->
                 <plugin>
@@ -162,6 +182,116 @@
                                 <reports>
                                     <report>dependency-updates-report</report>
                                     <report>plugin-updates-report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <!-- profile for EAR builds -->
+        <profile>
+            <id>ear-build</id>
+            <activation>
+                <file>
+                    <exists>ear-build</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${c2b.jdk.version}</source>
+                            <target>${c2b.jdk.version}</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-ear-plugin</artifactId>
+                        <configuration>
+                            <version>${c2b.javaee.version}</version>
+                            <defaultLibBundleDir>lib</defaultLibBundleDir>
+                            <skinnyWars>true</skinnyWars>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>index</report>
+                                    <report>project-team</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>modules</report>
+                                    <report>distribution-management</report>
+                                    <report>dependencies</report>
+                                    <report>dependency-info</report>
+                                    <report>plugins</report>
+                                    <report>summary</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <!-- profile for WAR builds -->
+        <profile>
+            <id>war-build</id>
+            <activation>
+                <file>
+                    <exists>war-build</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${c2b.jdk.version}</source>
+                            <target>${c2b.jdk.version}</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>index</report>
+                                    <report>project-team</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>modules</report>
+                                    <report>distribution-management</report>
+                                    <report>dependencies</report>
+                                    <report>dependency-info</report>
+                                    <report>plugins</report>
+                                    <report>summary</report>
                                 </reports>
                             </reportSet>
                         </reportSets>
