@@ -60,6 +60,10 @@
                     <version>2.9</version>
                 </plugin>
                 <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.17</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.1</version>
                 </plugin>
@@ -92,6 +96,11 @@
                     <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                     <artifactId>android-maven-plugin</artifactId>
                     <version>3.9.0-rc.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>1.0.1.Final</version>
                 </plugin>
                 <!-- Apache Maven report plugins -->
                 <plugin>
@@ -209,6 +218,108 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>index</report>
+                                    <report>project-team</report>
+                                    <report>license</report>
+                                    <report>scm</report>
+                                    <report>cim</report>
+                                    <report>issue-tracking</report>
+                                    <report>modules</report>
+                                    <report>distribution-management</report>
+                                    <report>dependencies</report>
+                                    <report>dependency-info</report>
+                                    <report>plugins</report>
+                                    <report>summary</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <!-- profile for intefration test builds -->
+        <profile>
+            <id>it-build</id>
+            <activation>
+                <file>
+                    <exists>it-build</exists>
+                </file>
+            </activation>
+            <properties>
+                <c2b.test.it.selenium.url>http://127.0.0.1:4444/wd/hub</c2b.test.it.selenium.url>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${c2b.jdk.version}</source>
+                            <target>${c2b.jdk.version}</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*TestSuite.java</include>
+                            </includes>
+                            <systemPropertyVariables>
+                                <c2b.test.it.selenium.url>${c2b.test.it.selenium.url}</c2b.test.it.selenium.url>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <configuration>
+                            <javaHome>${c2b.jvm.home}</javaHome>
+                            <jbossHome>${c2b.jboss.home}</jbossHome>
+                            <port>10090</port>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>wildfly-start</id>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <phase>clean</phase>
+                            </execution>
+                            <execution>
+                                <id>wildfly-stop</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
